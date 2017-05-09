@@ -3,7 +3,7 @@
     <div class="mdl-grid portfolio-max-width portfolio-contact">
       <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
           <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">
+            <h2 data-qa="contactTitle"class="mdl-card__title-text">
               Contact
             </h2>
           </div>
@@ -52,6 +52,16 @@
                           type="submit">
                     Submit
                   </button>
+                  <button v-on:click="resetForm" class="mdl-button
+                                 mdl-js-button
+                                 mdl-button--raised
+                                 mdl-js-ripple-effect
+                                 "
+                          v-mdl
+                          type="reset">
+                    Cancel
+                  </button>
+
                 </p>
             </form>
           </div>
@@ -72,7 +82,9 @@ export default {
     };
   },
   methods: {
-
+    resetForm() {
+      Object.assign(this.$data, this.$options.data());
+    }
   },
 };
 </script>
