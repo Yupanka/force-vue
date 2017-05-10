@@ -6,6 +6,9 @@ module.exports = {
     emailField: '#contactInfoEmail',
     noteField: '#contactInfoNote',
     submitButton: '[type="submit"]',
-    cancelButton: '[type="reset"]'
+    cancelButton: '[type="reset"]',
+    nameError: '#contactInfoNameError',
+    emailError: '#contactInfoEmailError',
+    noteError: '#contactInfoNoteError'
   }
 };
