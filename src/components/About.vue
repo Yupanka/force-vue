@@ -5,7 +5,7 @@
                   mdl-cell--12-col
                   mdl-card mdl-shadow--4dp">
           <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">
+              <h2 data-qa="aboutTitle" class="mdl-card__title-text">
                 About
               </h2>
           </div>
