@@ -86,7 +86,8 @@ export default {
       this.$validator.validateAll(scope).then(result => {
         if (result) {
         // TODO: add actual functionality
-          this.resetForm();
+          // eslint-disable-next-line
+          alert('From Submitted!');
         }
       });
     },
