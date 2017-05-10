@@ -85,7 +85,6 @@ export default {
     validateForm(scope) {
       this.$validator.validateAll(scope).then(result => {
         if (result) {
-          // eslint-disable-next-line
           alert('From Submitted!');
         }
       });
