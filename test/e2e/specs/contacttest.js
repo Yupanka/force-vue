@@ -7,9 +7,11 @@ var about = require('../pages/about.js');
 module.exports = {
   before : function(browser) {
     browser
-    .url(browser.globals.devServerURL + '/?#contact')
-    .waitForElementVisible(contact.elements.contactTitle, 5000)
-    /*
+      .url(browser.globals.devServerURL + '/#contact')
+      .resizeWindow(1280, 800)
+      .waitForElementVisible(contact.elements.contactTitle, 5000)
+      /*
+      .waitForElementVisible(contact.elements.contactTitle, 5000)
       .url(browser.globals.devServerURL)
       .isVisible(menu.smallScreen.smallScreenButton, function (res) {
         if(res.value === true) {
