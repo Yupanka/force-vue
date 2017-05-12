@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ref="drawer">
         <header class="fv-layout-transparent mdl-layout__header mdl-layout__header--transparent portfolio-header">
             <div class="mdl-layout__header-row portfolio-logo-row">
                 <span class="mdl-layout__title">
@@ -17,9 +17,9 @@
         </header>
         <div class="mdl-layout__drawer mdl-layout--small-screen-only">
             <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
-              <router-link class="mdl-navigation__link" to="/home">Home</router-link>
-              <router-link class="mdl-navigation__link" to="/about">About</router-link>
-              <router-link class="mdl-navigation__link" to="/contact">Contact</router-link>
+              <router-link class="mdl-navigation__link" to="/home" @click.native="toggleMenu()">Home</router-link>
+              <router-link class="mdl-navigation__link" to="/about" @click.native="toggleMenu()">About</router-link>
+              <router-link class="mdl-navigation__link" to="/contact" @click.native="toggleMenu()">Contact</router-link>
             </nav>
         </div>
         <main class="mdl-layout__content">
@@ -39,6 +39,17 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'app',
+  methods: {
+    toggleMenu() {
+      this.$refs.drawer.MaterialLayout.toggleDrawer();
+    }
+  }
+};
+</script>
 
 <style>
 .fv-layout-transparent {
