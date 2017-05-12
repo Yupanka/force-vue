@@ -15,7 +15,6 @@ module.exports = {
           .waitForElementVisible(menu.smallScreen.ssContact, 5000)
           .click(menu.smallScreen.ssContact)
           .waitForElementVisible(contact.elements.contactTitle, 5000)
-          .click(contact.elements.contactTitle)
         }
         else {
           browser
@@ -31,10 +30,10 @@ module.exports = {
   },
 
   'verify that menu Contact opens the correct page': function (browser) {
-    // intentionally played with the Expect library
     browser.getText(contact.elements.contactTitle, function(txt) {
       this.assert.equal(txt.value, 'Contact')
     });
+    // intentionally played with the Expect library
     browser.expect.element(contact.elements.nameField).to.be.visible;
     browser.expect.element(contact.elements.emailField).to.be.visible;
     browser.expect.element(contact.elements.noteField).to.be.visible;
