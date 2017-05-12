@@ -8,9 +8,22 @@ module.exports = {
   before : function(browser) {
     browser
       .url(browser.globals.devServerURL)
-      .waitForElementVisible(menu.menuItems.contact, 5000)
-      .click(menu.menuItems.contact)
-      .waitForElementVisible(contact.elements.contactTitle, 5000);
+      .isVisible(menu.smallScreen.smallScreenButton, function (res) {
+        if(res.value === true) {
+          browser
+          .click(menu.smallScreen.smallScreenButton)
+          .waitForElementVisible(menu.smallScreen.ssContact, 5000)
+          .click(menu.smallScreen.ssContact)
+          .waitForElementVisible(contact.elements.contactTitle, 5000)
+          .click(contact.elements.contactTitle)
+        }
+        else {
+          browser
+          .waitForElementVisible(menu.menuItems.contact, 5000)
+          .click(menu.menuItems.contact)
+          .waitForElementVisible(contact.elements.contactTitle, 5000)
+        }
+      });
   },
 
   after : function(browser) {
@@ -27,23 +40,6 @@ module.exports = {
     browser.expect.element(contact.elements.noteField).to.be.visible;
     browser.expect.element(contact.elements.submitButton).to.be.visible;
     browser.expect.element(contact.elements.cancelButton).to.be.visible;
-  },
-
-  'verify navigation from Contact to About and back': function (browser) {
-    // rest of the tests are written with Assert
-    browser
-      .url(browser.globals.devServerURL + '/?#contact')
-      .waitForElementVisible(menu.menuItems.about, 5000)
-      .click(menu.menuItems.about)
-      .waitForElementVisible(about.elements.aboutTitle, 5000)
-      .getText(about.elements.aboutTitle, function(txt) {
-        this.assert.equal(txt.value, 'About');
-      })
-      .click(menu.menuItems.contact)
-      .waitForElementVisible(contact.elements.contactTitle, 5000)
-      .getText(contact.elements.contactTitle, function(txt) {
-        this.assert.equal(txt.value, 'Contact')
-      });
   },
 
   'verify the user can fill out form with valid values without errors': function (browser) {
@@ -64,7 +60,7 @@ module.exports = {
     });
   },
 
-  'verify that Cancel button clears the form': function (browser) {
+  'verify that Clear button clears the form': function (browser) {
     browser
       .clearValue(contact.elements.nameField)
       .keys(_.head(data.feedback).name)
