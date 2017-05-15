@@ -5,7 +5,7 @@ module.exports = {
 	},
     menuItems: {
         home: '.mdl-layout--large-screen-only > .mdl-navigation > [href="#/home"]',
-        about: '[href="#/about"]',
-        contact:'[href="#/contact"]'
+        about: '.mdl-layout--large-screen-only > .mdl-navigation > [href="#/about"]',
+        contact:'.mdl-layout--large-screen-only > .mdl-navigation > [href="#/contact"]'
     },
 };
