@@ -31,7 +31,7 @@ module.exports = {
 
   'verify that menu Contact opens the correct page': function (browser) {
     browser.getText(contact.elements.contactTitle, function(txt) {
-      this.assert.equal(txt.value, 'Contact')
+      this.verify.equal(txt.value, 'Contact')
     });
     // intentionally played with the Expect library
     browser.expect.element(contact.elements.nameField).to.be.visible;
@@ -42,81 +42,82 @@ module.exports = {
   },
 
   'verify the user can fill out form with valid values without errors': function (browser) {
+    // since clearValue() doesn't work correctly, I've tried to use setValue to delete current input
     _.forEach(data.feedback, function(el, ind) {
       browser
-        .clearValue(contact.elements.nameField)
-        .keys(el.name)
-        .clearValue(contact.elements.emailField)
-        .keys(el.email)
-        .clearValue(contact.elements.noteField)
-        .keys(el.note)
-        .assert.attributeEquals(contact.elements.nameField, "value", el.name)
-        .assert.attributeEquals(contact.elements.emailField, "value", el.email)
-        .assert.attributeEquals(contact.elements.noteField, "value", el.note)
-        .assert.hidden(contact.elements.nameError)
-        .assert.hidden(contact.elements.emailError)
-        .assert.hidden(contact.elements.noteError);
+        .setValue(contact.elements.nameField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.nameField, el.name)
+        .setValue(contact.elements.emailField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.emailField, el.email)
+        .setValue(contact.elements.noteField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.noteField, el.note)
+        .verify.attributeEquals(contact.elements.nameField, "value", el.name)
+        .verify.attributeEquals(contact.elements.emailField, "value", el.email)
+        .verify.attributeEquals(contact.elements.noteField, "value", el.note)
+        .verify.hidden(contact.elements.nameError)
+        .verify.hidden(contact.elements.emailError)
+        .verify.hidden(contact.elements.noteError);
     });
   },
 
   'verify that Clear button clears the form': function (browser) {
     browser
-      .clearValue(contact.elements.nameField)
-      .keys(_.head(data.feedback).name)
-      .clearValue(contact.elements.emailField)
-      .keys(_.head(data.feedback).email)
-      .clearValue(contact.elements.noteField)
-      .keys(_.head(data.feedback).note)
+      .setValue(contact.elements.nameField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.nameField, _.head(data.feedback).name)
+      .setValue(contact.elements.emailField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.emailField, _.head(data.feedback).email)
+      .setValue(contact.elements.noteField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.noteField, _.head(data.feedback).note)
       .click(contact.elements.cancelButton)
-      .assert.attributeEquals(contact.elements.nameField, "value", data.defaultData.name)
-      .assert.attributeEquals(contact.elements.emailField, "value", data.defaultData.email)
-      .assert.attributeEquals(contact.elements.noteField, "value", data.defaultData.note)
+      .verify.attributeEquals(contact.elements.nameField, "value", data.defaultData.name)
+      .verify.attributeEquals(contact.elements.emailField, "value", data.defaultData.email)
+      .verify.attributeEquals(contact.elements.noteField, "value", data.defaultData.note)
   },
 
   'verify the errors are displayed if input is missing': function (browser) {
     _.forEach(data.missingInput, function(el, ind) {
       browser
-        .clearValue(contact.elements.nameField)
-        .keys(el.name)
-        .clearValue(contact.elements.emailField)
-        .keys(el.email)
-        .clearValue(contact.elements.noteField)
-        .keys(el.note)
-        .assert.attributeEquals(contact.elements.nameField, "value", el.name)
-        .assert.attributeEquals(contact.elements.emailField, "value", el.email)
-        .assert.attributeEquals(contact.elements.noteField, "value", el.note)
-        .assert.visible(el.err);
+        .setValue(contact.elements.nameField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.nameField, el.name)
+        .setValue(contact.elements.emailField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.emailField, el.email)
+        .setValue(contact.elements.noteField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.noteField, el.note)
+        .verify.attributeEquals(contact.elements.nameField, "value", el.name)
+        .verify.attributeEquals(contact.elements.emailField, "value", el.email)
+        .verify.attributeEquals(contact.elements.noteField, "value", el.note)
+        .verify.visible(el.err);
     });
   },
 
   'verify the error is displayed for invalid email': function (browser) {
     _.forEach(data.invalidEmail, function(el, ind) {
       browser
-        .clearValue(contact.elements.nameField)
-        .keys(el.name)
-        .clearValue(contact.elements.emailField)
-        .keys(el.email)
-        .clearValue(contact.elements.noteField)
-        .keys(el.note)
-        .assert.attributeEquals(contact.elements.nameField, "value", el.name)
-        .assert.attributeEquals(contact.elements.emailField, "value", el.email)
-        .assert.attributeEquals(contact.elements.noteField, "value", el.note)
-        .assert.visible(contact.elements.emailError)
-        .assert.containsText(contact.elements.emailError, 'valid email');
+        .setValue(contact.elements.nameField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.nameField, el.name)
+        .setValue(contact.elements.emailField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.emailField, el.email)
+        .setValue(contact.elements.noteField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+        .setValue(contact.elements.noteField, el.note)
+        .verify.attributeEquals(contact.elements.nameField, "value", el.name)
+        .verify.attributeEquals(contact.elements.emailField, "value", el.email)
+        .verify.attributeEquals(contact.elements.noteField, "value", el.note)
+        .verify.visible(contact.elements.emailError)
+        .verify.containsText(contact.elements.emailError, 'valid email');
     });
   },
 
   'verify that input is validated on Submit': function (browser) {
     browser
-      .clearValue(contact.elements.nameField)
-      .keys(data.defaultData.name)
-      .clearValue(contact.elements.emailField)
-      .keys(data.defaultData.email)
-      .clearValue(contact.elements.noteField)
-      .keys(data.defaultData.note)
+      .setValue(contact.elements.nameField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.nameField, data.defaultData.name)
+      .setValue(contact.elements.emailField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.emailField, data.defaultData.email)
+      .setValue(contact.elements.noteField, [browser.Keys.CONTROL,'a', browser.Keys.BACK_SPACE])
+      .setValue(contact.elements.noteField, data.defaultData.note)
       .click(contact.elements.submitButton)
-      .assert.visible(contact.elements.nameError)
-      .assert.visible(contact.elements.emailError)
-      .assert.visible(contact.elements.noteError);
+      .verify.visible(contact.elements.nameError)
+      .verify.visible(contact.elements.emailError)
+      .verify.visible(contact.elements.noteError);
   }
 }

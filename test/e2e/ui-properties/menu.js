@@ -4,7 +4,7 @@ module.exports = {
 		ssContact: '.mdl-layout--small-screen-only.is-visible > .mdl-navigation > [href="#/contact"]'
 	},
     menuItems: {
-        home: '[href="#/home"]',
+        home: '.mdl-layout--large-screen-only > .mdl-navigation > [href="#/home"]',
         about: '[href="#/about"]',
         contact:'[href="#/contact"]'
     },
